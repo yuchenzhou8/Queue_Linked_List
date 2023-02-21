@@ -1,27 +1,31 @@
 #include "queue.h"
 
-// Assumes little endian
-void printBits(size_t const size, void const * const ptr)
+int* allocate_int(int value)
 {
-    unsigned char *b = (unsigned char*) ptr;
-    unsigned char byte;
-    int i, j;
-    
-    for (i = size-1; i >= 0; i--) {
-        for (j = 7; j >= 0; j--) {
-            byte = (b[i] >> j) & 1;
-            printf("%u", byte);
-        }
+    int* num = (int*)malloc(sizeof(int));
+    if(num) (*num) = value;
+    return num;
+}
+
+void Display(QueueNode *head)
+{
+    if(head == NULL)
+    {
+        printf("||\n");
     }
-    puts("");
+    else
+    {
+        printf("%d ", (*(int*)(head -> Data)));
+        Display(head->Next);
+    }
 }
 
 int main(int argc, char const *argv[])
 {
     Queue *q = CreateQueue(32);
-    EnQueue(q,10);
-    EnQueue(q,20);
-    EnQueue(q,30);
+    EnQueue(q, allocate_int(20));
+    EnQueue(q, allocate_int(33));
+    EnQueue(q, allocate_int(44));
     printf("Queue before DeQueue\n");
     Display(q->Front);
     DeQueue(q);

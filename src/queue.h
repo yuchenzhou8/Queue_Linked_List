@@ -13,7 +13,7 @@
 /* structure */
 struct _QueueNode
 {
-    int Data;
+    void *Data;
     struct _QueueNode *Next;
 };
 typedef struct _QueueNode QueueNode;
@@ -30,8 +30,7 @@ typedef struct _Queue Queue;
 /* methods */
 Queue* CreateQueue(int depth);
 bool IsEmpty(Queue *q);
-void EnQueue(Queue *q, int value);
-int DeQueue(Queue *q);
-void Display(QueueNode *head);
+void EnQueue(Queue *q, void *data);
+void* DeQueue(Queue *q);
 
 #endif

@@ -13,13 +13,13 @@ bool IsEmpty(Queue *q)
     return (q->Rear == NULL);
 }
 
-void EnQueue(Queue *q, int value)
+void EnQueue(Queue *q, void *data)
 {
     if (q->Count < q->SizeFull)
     {
         QueueNode *tmp;
         tmp = malloc(sizeof(QueueNode));
-        tmp->Data = value;
+        tmp->Data = data;
         tmp->Next = NULL;
         if(!IsEmpty(q))
         {
@@ -38,26 +38,13 @@ void EnQueue(Queue *q, int value)
     }
 }
 
-int DeQueue(Queue *q)
+void* DeQueue(Queue *q)
 {
     QueueNode *tmp;
-    int n = q->Front->Data;
+    void* ret = q->Front->Data;
     tmp = q->Front;
     q->Front = q->Front->Next;
     q->Count--;
     free(tmp);
-    return(n);
-}
-
-void Display(QueueNode *head)
-{
-    if(head == NULL)
-    {
-        printf("||\n");
-    }
-    else
-    {
-        printf("%d ", head -> Data);
-        Display(head->Next);
-    }
+    return(ret);
 }
